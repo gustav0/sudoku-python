@@ -14,20 +14,7 @@ class Number(object):
 
 
 def get_block(x, y):
-    if x <= 3:
-        a = 1
-    elif x <= 6:
-        a = 2
-    elif x <= 9:
-        a = 3
-
-    if y <= 3:
-        b = 0
-    elif y <= 6:
-        b = 3
-    elif y <= 9:
-        b = 6
-    return a + b
+    return (((x-1)//3)+1)+(((y-1)//3)*3)
 
 
 g = nx.Graph()
@@ -41,5 +28,12 @@ for key, value in g.node.items():
     node = key
     for key2, value2 in g.node.items():
         if int(value['x'])+1 == int(value2['x']) and int(value['y']) == int(value2['y']):
-            print("Enlace {0} - {1}".format(key, key2))
-
+            g.add_edge(key,key2, direction='y')
+        elif int(value['y'])+1 == int(value2['y']) and int(value['x']) == int(value2['x']):
+            g.add_edge(key,key2, direction='x')
+            # print("Enlace {0} - {1}".format(key, key2))
+# print(g.node)
+for key, value in g.edge.items():
+    print(key,value)
+# print(g.nodes())
+# print(g.edges())
